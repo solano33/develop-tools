@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+
+<generatorConfiguration>
+    <!--
+        targetRuntime有两个配置：
+            MyBatis3Simple：生成的是基础版，只有基础的增删改查
+            MyBatis3：生成的是增强版，除了基本的增删改查之外还有复杂的sql
+    -->
+    <context id="sqlGenerate" targetRuntime="MyBatis3Simple">
+
+
+
+        <commentGenerator>
+            <!--是否去掉生成日期-->
+            <property name="suppressDate" value="true"/>
+
+            <!-- 是否去除自动生成的注释-->
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
+        <!-- 数据库链接URL、用户名、密码 -->
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/solano?serverTimezone=UTC"
+                        userId="root" password="root">
+        </jdbcConnection>
+
+<!--        &lt;!&ndash; 默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer;-->
+<!--        为 true时把JDBC DECIMAL和NUMERIC类型解析为java.math.BigDecimal &ndash;&gt;-->
+<!--        <javaTypeResolver>-->
+<!--            <property name="forceBigDecimals" value="false"/>-->
+<!--        </javaTypeResolver>-->
+
+        <!-- 生成Pojo包名和位置 -->
+        <javaModelGenerator targetPackage="com.solano.pojo"
+                            targetProject="src/main/java/">
+            <!-- 是否开启子包 -->
+            <property name="enableSubPackages" value="true"/>
+            <!-- 清理前后的空格 -->
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <!-- 生成Mapper映射XML文件位置 -->
+        <sqlMapGenerator targetPackage="com.solano.Mapper"
+                         targetProject="src/main/resources/">
+            <!-- 是否开启子包 -->
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <!-- 生成Mapper接口文件位置 -->
+        <javaClientGenerator type="XMLMAPPER"
+                             targetPackage="com.solano.Mapper" targetProject="src/main/java/">
+            <property name="enableSubPackages" value="true"/>
+            <!--如果设置了这个根对象，那么生成的keyClass或者recordClass会继承这个类-->
+            <!--<property name="rootClass" value="com._520it.mybatis.domain.BaseDomain"/>-->
+        </javaClientGenerator>
+
+        <!-- 要生成哪些表(更改tableName和domainObjectName就可以) -->
+        <!-- tableName:要生成的表名
+        domainObjectName:生成后的实例名
+        enableCountByExample:Count语句中加入where条件查询，默认为true开启
+        enableUpdateByExample:Update语句中加入where条件查询，默认为true开启
+        enableDeleteByExample:Delete语句中加入where条件查询，默认为true开启
+        enableSelectByExample:Select多条语句中加入where条件查询，默认为true开启
+        selectByExampleQueryId:Select单个对象语句中加入where条件查询，默认为true开启
+        -->
+        <table tableName="user" domainObjectName="User"/>
+        <!--enableCountByExample="false" enableUpdateByExample="false"-->
+        <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+        <!--selectByExampleQueryId="false"-->
+        <!--<table tableName="category" />-->
+        <!--<table tableName="order"/>-->
+        <!--<table tableName="product"/>-->
+        <!--<table tableName="order_detail"/>-->
+    </context>
+</generatorConfiguration>
