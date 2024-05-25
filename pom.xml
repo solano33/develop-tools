@@ -10,6 +10,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>mybatis-generator</module>
+        <module>mybatis-demo</module>
     </modules>
 
     <properties>
