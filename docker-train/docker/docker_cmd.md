@@ -40,5 +40,10 @@ docker tag [ImageId] registry.cn-hangzhou.aliyuncs.com/solano/ubuntu:[镜像版�
 docker push registry.cn-hangzhou.aliyuncs.com/solano/ubuntu:[镜像版本号]
 也可以将本地提交后新的镜像推送到远端仓库
 
+#### 容器卷挂载
+docker run -it --privileged=true -v /Users/wuhongbin/Documents/docker/ubuntu:/home/work ubuntu:v1 /bin/bash
+--privileged=true表示进行权限共享，可以使容器类拥有root权限
+-v 宿主机目录:容器内目录:rw/ro：表示将宿主机目录挂在到容器内，同时可指定读写模式
+docker run -it --privileged=true --volumes-from u1 --name u2 ubuntu /bin/bash
 
 
