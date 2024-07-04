@@ -14,6 +14,7 @@
         <module>docker-train</module>
         <module>k8s-train</module>
         <module>git-train</module>
+        <module>spring-statemachine</module>
     </modules>
 
     <properties>
