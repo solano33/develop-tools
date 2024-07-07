@@ -1,10 +1,10 @@
-package com.sulano.statemachine;
+package com.solano.statemachine;
 
 import com.alibaba.cola.statemachine.Action;
 import com.alibaba.cola.statemachine.Condition;
-import com.sulano.entity.Task;
-import com.sulano.entity.TaskEven;
-import com.sulano.entity.TaskStateEnum;
+import com.solano.entity.Task;
+import com.solano.entity.TaskEven;
+import com.solano.entity.TaskStateEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 

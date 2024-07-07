@@ -1,8 +1,8 @@
-package com.sulano.statemachine;
+package com.solano.statemachine;
 
 import com.alibaba.cola.statemachine.Action;
 import com.alibaba.cola.statemachine.Condition;
-import com.sulano.entity.TaskEven;
+import com.solano.entity.TaskEven;
 import lombok.Getter;
 
 /**

@@ -1,14 +1,13 @@
-package com.sulano.statemachine;
+package com.solano.statemachine;
 
 import com.alibaba.cola.statemachine.StateMachine;
-import com.sulano.entity.Task;
-import com.sulano.entity.TaskEven;
-import com.sulano.entity.TaskStateEnum;
+import com.solano.entity.Task;
+import com.solano.entity.TaskEven;
+import com.solano.entity.TaskStateEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;

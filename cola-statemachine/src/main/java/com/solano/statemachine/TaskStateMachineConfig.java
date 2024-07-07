@@ -1,14 +1,12 @@
-package com.sulano.statemachine;
+package com.solano.statemachine;
 
-import com.alibaba.cola.statemachine.Action;
-import com.alibaba.cola.statemachine.Condition;
 import com.alibaba.cola.statemachine.StateMachine;
 import com.alibaba.cola.statemachine.StateMachineFactory;
 import com.alibaba.cola.statemachine.builder.StateMachineBuilder;
 import com.alibaba.cola.statemachine.builder.StateMachineBuilderFactory;
-import com.sulano.entity.Task;
-import com.sulano.entity.TaskEven;
-import com.sulano.entity.TaskStateEnum;
+import com.solano.entity.Task;
+import com.solano.entity.TaskEven;
+import com.solano.entity.TaskStateEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

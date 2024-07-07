@@ -1,4 +1,4 @@
-package com.sulano.entity;
+package com.solano.entity;
 
 /**
  * @author github.com/solano33
