@@ -22,6 +22,7 @@
         <module>git-train</module>
         <module>spring-statemachine</module>
         <module>cola-statemachine</module>
+        <module>mybatis-spring-demo</module>
     </modules>
 
     <properties>

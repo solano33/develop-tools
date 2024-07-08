@@ -1,0 +1,11 @@
+spring:
+  # datasource 数据源配置内容
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/solano?useSSL=false&useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: root
+
+# mybatis 配置内容
+mybatis:
+  mapper-locations: classpath:mapper/*.xml  # 配置 Mapper XML 地址
