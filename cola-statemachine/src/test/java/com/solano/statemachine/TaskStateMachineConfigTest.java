@@ -4,6 +4,7 @@ import com.alibaba.cola.statemachine.StateMachine;
 import com.solano.entity.Task;
 import com.solano.entity.TaskEven;
 import com.solano.entity.TaskStateEnum;
+import com.solano.service.TaskService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,13 +23,12 @@ public class TaskStateMachineConfigTest {
 
     @Resource
     private StateMachine<TaskStateEnum, TaskEven, Task> taskStateMachine;
+    @Resource
+    private TaskService taskService;
 
     @Test
     public void test() {
-        Task task = new Task(UUID.randomUUID().toString(), TaskStateEnum.init);
-        log.info("before, task: {}", task);
-        TaskStateEnum taskStateEnum = taskStateMachine.fireEvent(TaskStateEnum.init, TaskEven.initialization, task);
-        log.info("after, task: {}", task);
+        taskService.updateTasks();
     }
 
 }

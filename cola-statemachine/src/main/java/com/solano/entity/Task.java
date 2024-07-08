@@ -1,25 +1,23 @@
 package com.solano.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 /**
  * @author github.com/solano33
  * @date 2024/7/4 21:33
  */
+@AllArgsConstructor
+@ToString
+@Getter
+@Setter
 public class Task {
 
-    public String uuid;
+    private Integer id;
 
-    public TaskStateEnum state;
+    private TaskStateEnum state;
 
-    public Task(String uuid, TaskStateEnum state) {
-        this.uuid = uuid;
-        this.state = state;
-    }
-
-    @Override
-    public String toString() {
-        return "Task{" +
-                "uuid='" + uuid + '\'' +
-                ", statue=" + state +
-                '}';
-    }
+    private String name;
 }
