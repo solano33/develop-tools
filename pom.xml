@@ -23,6 +23,7 @@
         <module>spring-statemachine</module>
         <module>cola-statemachine</module>
         <module>mybatis-spring-demo</module>
+        <module>arthas-train</module>
     </modules>
 
     <properties>
