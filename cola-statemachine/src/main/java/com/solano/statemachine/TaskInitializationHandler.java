@@ -7,10 +7,10 @@ import com.solano.entity.TaskEven;
 import com.solano.entity.TaskStateEnum;
 import com.solano.mapper.TaskMapper;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.aop.framework.AopContext;
-import org.springframework.aop.framework.AopProxyUtils;
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import javax.annotation.Resource;
 
@@ -19,7 +19,7 @@ import javax.annotation.Resource;
  * @date 2024/7/5 16:46
  */
 @Slf4j
-@Component
+@Configuration
 public class TaskInitializationHandler extends TaskEvenBaseHandler<TaskStateEnum, TaskEven, Task> {
 
     public TaskInitializationHandler() {
@@ -38,10 +38,16 @@ public class TaskInitializationHandler extends TaskEvenBaseHandler<TaskStateEnum
     }
 
     @Override
+    @Bean("taskInitializationAction")
     public Action<TaskStateEnum, TaskEven, Task> action() {
-        return (from, to, taskEven, task) -> {
-            AopProxyUtils.ultimateTargetClass(this);
-            ((TaskInitializationHandler)AopContext.currentProxy()).action(from, to, taskEven, task);
+        return new Action<TaskStateEnum, TaskEven, Task>() {
+            @Override
+            @Transactional(rollbackFor = Exception.class)
+            public void execute(TaskStateEnum from, TaskStateEnum to, TaskEven taskEven, Task task) {
+                boolean actualTransactionActive = TransactionSynchronizationManager.isActualTransactionActive();
+                log.info("actualTransactionActive: {}", actualTransactionActive);
+                action(from, to, taskEven, task);
+            }
         };
     }
 
@@ -50,7 +56,6 @@ public class TaskInitializationHandler extends TaskEvenBaseHandler<TaskStateEnum
         log.info("执行当前触发事件逻辑, form: {}, to: {}, even: {}", from, to, taskEven);
         log.info("from_task: {}", task);
         task.setState(to);
-//            taskMapper.updateState(task.getId(), task.getState());
         updateTask3();
         updateTask4();
         log.info("to_task: {}", to);

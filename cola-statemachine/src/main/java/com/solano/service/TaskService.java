@@ -23,7 +23,6 @@ public class TaskService {
     @Resource
     private StateMachine<TaskStateEnum, TaskEven, Task> taskStateMachine;
 
-//    @Transactional(rollbackFor = Exception.class)
     public void updateTasks() {
 
         boolean actualTransactionActive = TransactionSynchronizationManager.isActualTransactionActive();
@@ -31,12 +30,8 @@ public class TaskService {
 
         Task task = new Task(1, TaskStateEnum.init, "单程优化2");
         updateTask(task);
-
-//        Task task2 = new Task(2, TaskStateEnum.init, "多程对齐");
-//        updateTask(task2);
     }
 
-//    @Transactional(rollbackFor = Exception.class)
     public void updateTask(Task task) {
         boolean actualTransactionActive = TransactionSynchronizationManager.isActualTransactionActive();
         log.info("actualTransactionActive: {}", actualTransactionActive);
