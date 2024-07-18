@@ -8,7 +8,7 @@ jinfo <PID>：查看某java进程的属性详情，包含启动参数、JVM参�
 
 jstat -gc <PID> 5000：打印内存里的占用情况，每5000毫秒刷新一次
 
-jstack <PID>：把java进程里的所有线程详情打印出来，包含名称、优先级、调用战
+jstack <PID>：把java进程里的所有线程详情打印出来，包含名称、优先级、调用栈
 
 jmap -histo <PID> | head -20：会打印出当前内存中前20个每种对象占用的个数和占用内存大小
     jmap -dump:format=b,file=case/dump.hprof <PID>
