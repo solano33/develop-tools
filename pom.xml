@@ -27,6 +27,7 @@
         <module>jmh-demo</module>
         <module>rocketmq-java-demo</module>
         <module>canal-client</module>
+        <module>etl-flink-cdc-demo</module>
     </modules>
 
     <properties>
