@@ -25,6 +25,7 @@
         <module>mybatis-spring-demo</module>
         <module>arthas-train</module>
         <module>jmh-demo</module>
+        <module>rocketmq-java-demo</module>
     </modules>
 
     <properties>
