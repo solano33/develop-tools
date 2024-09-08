@@ -26,6 +26,7 @@
         <module>arthas-train</module>
         <module>jmh-demo</module>
         <module>rocketmq-java-demo</module>
+        <module>canal-client</module>
     </modules>
 
     <properties>
