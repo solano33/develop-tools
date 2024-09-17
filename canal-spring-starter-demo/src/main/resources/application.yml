@@ -1,0 +1,3 @@
+canal:
+  destination: solano
+  server: localhost:11111

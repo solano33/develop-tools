@@ -29,6 +29,7 @@
         <module>canal-client</module>
         <module>etl-flink-cdc-demo</module>
         <module>spring-data-redis</module>
+        <module>canal-spring-starter-demo</module>
     </modules>
 
     <properties>

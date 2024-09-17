@@ -24,6 +24,10 @@ import com.alibaba.otter.canal.protocol.CanalEntry.RowData;
 public class SimpleCanalClientExample {
 
 
+    /**
+     * 注意要先启动：~/Documents/middleware/canal/canal.deployer-1.1.8-SNAPSHOT/bin/startup.sh
+     * @param args
+     */
     public static void main(String args[]) {
         // 创建链接
         CanalConnector connector = CanalConnectors.newSingleConnector(
