@@ -4,12 +4,14 @@ import com.solano.redis.pojo.User;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.redisson.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.*;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.time.LocalDateTime;
+import javax.annotation.Resource;
+import java.util.Comparator;
 import java.util.Map;
 import java.util.Random;
 
@@ -20,12 +22,52 @@ import java.util.Random;
 @Slf4j
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class SpringDataRedisTest {
+public class RedissonQueueTest {
 
     @Autowired
     private RedisTemplate redisTemplate;
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
+    @Autowired
+    private RedissonClient redissonClient;
+
+    @Test
+    public void testQueue() {
+        RPriorityQueue<Integer> queue = redissonClient.getPriorityQueue("anyQueue");
+        queue.trySetComparator(new MyComparator()); // 指定对象比较器
+        queue.add(3);
+        queue.add(1);
+        queue.add(2);
+
+        queue.removeAsync(0);
+//        queue.addAsync(5);
+
+        log.info("queue.poll(): {}", queue.poll());
+
+        RKeys keys = redissonClient.getKeys();
+        Iterable<String> iterable = keys.getKeys(1000);
+        iterable.forEach(e -> log.info("key: {}", e));
+    }
+
+    @Test
+    public void testBoundedBlockingQueue() {
+        RBoundedBlockingQueue<Integer> queue = redissonClient.getBoundedBlockingQueue("bbq");
+        RSortedSet<Object> sortedSet = redissonClient.getSortedSet("");
+        queue.trySetCapacity(5);
+        queue.trySetComparator(new MyComparator()); // 指定对象比较器
+        queue.add(3);
+        queue.add(1);
+        queue.add(2);
+
+        queue.removeAsync(0);
+//        queue.addAsync(5);
+
+        log.info("queue.poll(): {}", queue.poll());
+
+        RKeys keys = redissonClient.getKeys();
+        Iterable<String> iterable = keys.getKeys(1000);
+        iterable.forEach(e -> log.info("key: {}", e));
+    }
 
     @Test
     public void testString() {
@@ -85,3 +127,4 @@ public class SpringDataRedisTest {
      */
 
 }
+
