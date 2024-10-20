@@ -62,14 +62,17 @@ public class SpringDataRedisTest {
 
 
     /**
+     * task-queue:100000
      * ZSet<task_queue_work_type_id, task_id, priority>
      */
     @Test
     public void testZSet() {
         ZSetOperations zSetOperations = redisTemplate.opsForZSet();
         Random random = new Random();
+        String key = keyGenerator(100001);
         for (int i = 0; i < 100; i++) {
-            zSetOperations.add(keyGenerator(100000), i, random.nextInt(100));
+
+            zSetOperations.add("100_int", i, random.nextInt(10000000));
         }
     }
 

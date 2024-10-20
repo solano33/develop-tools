@@ -28,7 +28,8 @@ public class FixedCapacityPriorityQueue {
     }
 
     public Item poll() {
-        return sortedSet.();
+//        return sortedSet.();
+        return null;
     }
 
     public static class Item {

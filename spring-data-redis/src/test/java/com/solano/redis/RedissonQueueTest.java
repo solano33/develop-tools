@@ -54,7 +54,7 @@ public class RedissonQueueTest {
         RBoundedBlockingQueue<Integer> queue = redissonClient.getBoundedBlockingQueue("bbq");
         RSortedSet<Object> sortedSet = redissonClient.getSortedSet("");
         queue.trySetCapacity(5);
-        queue.trySetComparator(new MyComparator()); // 指定对象比较器
+//        queue.trySetComparator(new MyComparator()); // 指定对象比较器
         queue.add(3);
         queue.add(1);
         queue.add(2);

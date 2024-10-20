@@ -49,7 +49,7 @@ public class AirBoundedPriorityQueue<T> {
 
 
     public T take() {
-
+        return null;
     }
 
     /**
@@ -60,6 +60,6 @@ public class AirBoundedPriorityQueue<T> {
      * 2. 如果 c + n <= t，直接入队
      */
     public List<T> take(Integer count) {
-
+        return null;
     }
 }
