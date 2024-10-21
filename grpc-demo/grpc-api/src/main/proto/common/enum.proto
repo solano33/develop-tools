@@ -1,0 +1,322 @@
+syntax = "proto3";
+
+package com.solano.grpc.common.enumeration;
+
+/**
+ * 服务类型
+ */
+enum GrpcServiceTypeEnum {
+
+  /**
+   * 上游服务：任务生产者
+   */
+  TASK_GENERATOR = 0;
+
+  /**
+   * 下游服务：任务消费者
+   */
+  TASK_WORKER = 1;
+}
+
+/**
+ * 服务实例类型
+ */
+enum GrpcInstanceTypeEnum {
+
+  /**
+   * 上游服务 task-generator 1-9999
+   */
+  GENERATOR = 0;
+
+  /**
+   * 产线任务生产者
+   */
+  GENERATOR_PIPELINE = 1;
+  /**
+  *单趟雷达SLAM
+  */
+  GENERATOR_SINGLEPASS_LIDAR_SLAM = 2;
+  /**
+  * 用于WEB测试
+  */
+  GENERATOR_WEB_TEST = 9999;
+
+
+
+  /**
+   * 下游服务 task-worker 10000-19999
+   */
+  WORKER = 10000;
+
+  /**
+  *  导航联动仿真
+  */
+  WORKER_SIMULATION = 10001;
+
+  /**
+  *  SD抓取
+  */
+  WORKER_SD_OBTAIN = 10002;
+
+  /**
+   * 车道线标记识别
+   */
+  WORKER_LANE_MARKING = 10003;
+
+  /**
+  *单趟雷达SLAM
+  */
+  WORKER_SINGLEPASS_LIDAR_SLAM = 10004;
+
+  /**
+  *资料解算
+  */
+  WORKER_CAR_DATA_ETL = 10005;
+
+  /**
+  * SD抓取限速
+  */
+  WORKER_SD_OBTAIN_SPEED_LIMIT = 10006;
+
+  /**
+   * SD抓取事件
+   */
+  WORKER_SD_OBTAIN_EVENT = 10007;
+
+  /**
+   * 多程雷达SLAM
+   */
+  WORKER_MULTIPASS_LIDAR_SLAM = 10008;
+
+  /**
+  * 用于WEB测试
+  */
+  WORKER_WEB_TEST = 19999;
+
+}
+
+/**
+ * 任务来源的枚举类型
+ */
+enum GrpcTaskSourceEnum {
+
+  /**
+   * 未知
+   */
+  UNKNOWN_SOURCE = 0;
+
+  /**
+   * Jira
+   */
+  JIRA = 1;
+
+  /**
+   * 影子模式
+   */
+  SHADOW_MODE = 2;
+
+  /**
+   * HDMap reverse
+   */
+  HD_MAP_REVERSE = 3;
+
+  /**
+   * 导航联动仿真
+   */
+  NAVIGATION_LINKAGE_SIMULATION = 4;
+
+  /**
+   * SD限速获取
+   */
+  SD_SPEED_LIMIT_RETRIEVAL = 5;
+
+  /**
+   * SD交通事故
+   */
+  SD_TRAFFIC_ACCIDENT = 6;
+
+  /**
+   * 产线流程节点
+   */
+  PRODUCTION_LINE_PROCESS_NODE = 7;
+
+  /**
+   * 手动提交
+   */
+  MANUAL_SUBMISSION = 8;
+
+  /**
+   * 数据采集
+   */
+  DATA_ACQUISITION = 9;
+
+  /**
+   * 车端变化发现
+   */
+  CAR_CHANGE_FIND = 10;
+
+  /**
+   * 云端变化发现
+   */
+  CLOUD_CHANGE_FIND = 11;
+
+  /**
+   * 多次融合
+   */
+  MULTIPLE_FUSION = 12;
+
+  /**
+   * 人工录入
+   */
+  MANUAL_ENTRY = 13;
+
+  /**
+  * 产线内部节点
+  */
+  PIPELINE_INTERNAL = 14;
+
+  /**
+   * 采集区域
+   */
+  COLLECTION_AREA = 15;
+
+  /**
+   * 编译团队对接来源
+   */
+  COMPILATION_SERVE = 16;
+}
+
+/**
+ * enum
+ */
+
+/**
+ * 任务批次状态的枚举类型
+ */
+enum GrpcTaskBatchStatusEnum {
+
+  /**
+   * 传输中
+   */
+  TRANSFERRING = 0;
+
+  /**
+   * 未开始
+   */
+  NOT_STARTED = 1;
+
+  /**
+   * 执行中
+   */
+  IN_PROGRESS = 2;
+
+  /**
+   * 完成
+   */
+  COMPLETED = 3;
+
+  /**
+   * 终止
+   */
+  TERMINATED = 4;
+
+  /**
+   * 删除
+   */
+  DELETED = 5;
+  /**
+   * 主动取消
+   */
+  CANCELED = 6;
+  /**
+   * 尝试取消
+   */
+  TRY_CANCEL = 7;
+  /**
+   * 尝试终止
+   */
+  TRY_ABORT = 8;
+}
+
+/**
+ * 任务状态的枚举类型
+ */
+enum GrpcTaskStatusEnum {
+
+  /**
+   * 传输中
+   */
+  TASK_TRANSFERRING = 0;
+
+  /**
+   * 未开始
+   */
+  TASK_NOT_STARTED = 1;
+
+  /**
+   * 进行中
+   */
+  TASK_IN_PROGRESS = 2;
+
+  /**
+   * 完成
+   */
+  TASK_COMPLETED = 3;
+
+  /**
+   * 异常终止
+   */
+  TASK_TERMINATION = 4;
+
+  /**
+   * 主动取消
+   */
+  TASK_CANCELED = 5;
+
+  /**
+   * 删除
+   */
+  TASK_DELETED = 6;
+  /**
+  * 异常重试
+  */
+  TASK_RETRY = 7;
+  /**
+* 尝试取消
+*/
+  TASK_TRY_CANCEL = 8;
+  /**
+  * 尝试终止
+  */
+  TASK_TRY_ABORT = 9;
+  /**
+  * 已被拆分
+  */
+  TASK_SPLIT = 10;
+}
+
+/**
+ * 实例连接状态的枚举类型
+ */
+enum GrpcInstanceConnectionStatusEnum {
+
+  /**
+   * 未知
+   */
+  UNKNOWN_CON_STATUS = 0;
+
+  /**
+   * 已连接
+   */
+  CONNECTED = 1;
+
+  /**
+   * 过渡状态：健康检查异常，准备下线中
+   */
+  TIDYING = 2;
+
+  /**
+   * 已断开连接
+   */
+  DISCONNECTED = 3;
+}

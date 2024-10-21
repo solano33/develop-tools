@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package com.solano.grpc.service;
+
+import "common/common.proto";
+
+
+/**
+ * GeneralService
+ */
+service GrpcHelloService {
+
+  /**
+   * 任务重置
+   */
+  rpc sayHello(GrpcHelloParam) returns (common.GrpcBaseResponse) {};
+}
+
+message GrpcHelloParam {
+
+  string name = 1;
+
+  int32 count = 2;
+
+  string context = 3;
+}

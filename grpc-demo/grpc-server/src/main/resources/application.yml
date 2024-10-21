@@ -1,0 +1,5 @@
+server:
+  port: 8000
+grpc:
+  server:
+    port: 9010

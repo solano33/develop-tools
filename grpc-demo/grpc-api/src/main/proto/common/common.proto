@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package com.solano.grpc.common;
+
+/**
+ * 基本返回信息
+ */
+message GrpcBaseResponse {
+  /**
+   * 返回码
+   */
+  int32 code = 1;
+
+  /**
+   * 返回消息
+   */
+  string responseMessage = 2;
+}

@@ -29,6 +29,8 @@
         <module>canal-spring-starter-demo</module>
         <module>jcstress-demo</module>
         <module>aqs</module>
+        <module>grpc-demo</module>
+        <module>openfeign-demo</module>
     </modules>
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
