@@ -70,9 +70,32 @@ public class SpringDataRedisTest {
         ZSetOperations zSetOperations = redisTemplate.opsForZSet();
         Random random = new Random();
         String key = keyGenerator(100001);
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 1000; i++) {
+            zSetOperations.add("1k_zset", i, random.nextInt(5000));
+        }
+    }
 
-            zSetOperations.add("100_int", i, random.nextInt(10000000));
+    @Test
+    public void testList() {
+        ListOperations listOperations = redisTemplate.opsForList();
+        Random random = new Random();
+        String key = keyGenerator(100001);
+        Integer[] values = new Integer[1000];
+        for (int i = 0; i < 1000; i++) {
+            values[i] = random.nextInt(5000);
+        }
+        Long result = listOperations.leftPushAll("1k_list", values);
+        log.info("result: {}", result);
+    }
+
+    @Test
+    public void testList2() {
+        ListOperations listOperations = redisTemplate.opsForList();
+        Random random = new Random();
+        String key = keyGenerator(100001);
+        Integer[] values = new Integer[1000];
+        for (int i = 0; i < 1000; i++) {
+            Long result = listOperations.leftPush("1k_list", random.nextInt(5000));
         }
     }
 
