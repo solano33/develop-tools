@@ -32,6 +32,35 @@ public class RedissonQueueTest {
     private RedissonClient redissonClient;
 
     @Test
+    public void testB() {
+        RBloomFilter<Object> filter = redissonClient.getBloomFilter("testbf2");
+        filter.tryInit(100, 0.03);
+        for (int i = 0; i < 2000; i++) {
+            filter.add("PIPELINE_FLOW_NODE-bp_automatic_migration-37928-(315023)-subTask-315023-" + i);
+        }
+        boolean contains = filter.contains("PIPELINE_FLOW_NODE-bp_automatic_migration-37928-(315023)-subTask-315023-0");
+        log.info("contains: {}", contains);
+        contains = filter.contains("PIPELINE_FLOW_NODE-bp_automatic_migration-37928-(315023)-subTask-315023-50");
+        log.info("contains: {}", contains);
+        contains = filter.contains("PIPELINE_FLOW_NODE-bp_automatic_migration-37928-(315023)-subTask-315023-99");
+        log.info("contains: {}", contains);
+        contains = filter.contains("PIPELINE_FLOW_NODE-bp_automatic_migration-37928-(315023)-subTask-315023-100");
+        log.info("contains: {}", contains);
+        contains = filter.contains("PIPELINE_FLOW_NODE-bp_automatic_migration-37928-(315023)-subTask-315023-500");
+        log.info("contains: {}", contains);
+        contains = filter.contains("PIPELINE_FLOW_NODE-bp_automatic_migration-37928-(315023)-subTask-315023-999");
+        log.info("contains: {}", contains);
+        contains = filter.contains("PIPELINE_FLOW_NODE-bp_automatic_migration-37928-(315023)-subTask-315023-1000");
+        log.info("contains: {}", contains);
+        contains = filter.contains("PIPELINE_FLOW_NODE-bp_automatic_migration-37928-(315023)-subTask-315023-1001");
+        log.info("contains: {}", contains);
+        contains = filter.contains("PIPELINE_FLOW_NODE-bp_automatic_migration-37928-(315023)-subTask-315023-1999");
+        log.info("contains: {}", contains);
+        contains = filter.contains("PIPELINE_FLOW_NODE-bp_automatic_migration-37928-(315023)-subTask-315023-2999");
+        log.info("contains: {}", contains);
+    }
+
+    @Test
     public void testQueue() {
         RPriorityQueue<Integer> queue = redissonClient.getPriorityQueue("anyQueue");
         queue.trySetComparator(new MyComparator()); // 指定对象比较器

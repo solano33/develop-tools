@@ -40,24 +40,17 @@ public class RedisConfig {
         return template;
     }
 
+    /**
+     * key为String， value为Long类型专用
+     */
     @Bean
-    public RedisTemplate<String, Object> redisQueueTemplate(RedisConnectionFactory redisConnectionFactory) {
-        RedisTemplate<String, Object> redisTemplate = new RedisTemplate<String, Object>();
+    public RedisTemplate<String, Long> redisQueueTemplate(RedisConnectionFactory redisConnectionFactory) {
+        RedisTemplate<String, Long> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(redisConnectionFactory);
-
-        // 6.序列化类，对象映射设置
-        FastJsonRedisSerializer<Object> valueSerializer = new FastJsonRedisSerializer<>(Object.class);
-        RedisSerializer<String> stringSerializer = new StringRedisSerializer();
-        // key采用String的序列化方式
-        redisTemplate.setKeySerializer(stringSerializer);
-        // hash的key也采用String的序列化方式
-        redisTemplate.setHashKeySerializer(stringSerializer);
-        // value序列化方式采用jackson
+        FastJsonRedisSerializer<Long> valueSerializer = new FastJsonRedisSerializer<>(Long.class);
+//        Jackson2JsonRedisSerializer<Long> valueSerializer = new Jackson2JsonRedisSerializer<>(Long.class);
+        redisTemplate.setKeySerializer(RedisSerializer.string());
         redisTemplate.setValueSerializer(valueSerializer);
-        // hash的value序列化方式采用jackson
-        redisTemplate.setHashValueSerializer(valueSerializer);
-        redisTemplate.setDefaultSerializer(valueSerializer);
-
         return redisTemplate;
     }
 }
