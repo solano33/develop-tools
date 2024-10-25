@@ -33,9 +33,11 @@ public class AirBoundedPriorityQueueService {
     private RedisTemplate<String, Long> redisQueueTemplate;
 
     private final ResourceScriptSource taskQueueTakeMoreScript;
+    private final ResourceScriptSource taskQueueOfferMoreScript;
 
     public AirBoundedPriorityQueueService() {
         taskQueueTakeMoreScript = new ResourceScriptSource(new ClassPathResource("lua/taskQueueTakeMore.lua"));
+        taskQueueOfferMoreScript = new ResourceScriptSource(new ClassPathResource("lua/taskQueueOfferMore.lua"));
     }
 
     @Getter
@@ -82,9 +84,24 @@ public class AirBoundedPriorityQueueService {
     }
 
     /**
+     * 往队列添加多个任务
      *
+     * @param data
+     * @param taskType
      */
     public void offer(Collection<TaskQueueItem> data, Integer taskType) {
+        if (data == null || data.isEmpty()) {
+            return;
+        }
+        DefaultRedisScript<Void> redisScript = new DefaultRedisScript<>();
+        redisScript.setScriptSource(taskQueueOfferMoreScript);
+        redisQueueTemplate.execute(redisScript, Collections.singletonList(TOPIC_PREFIX + taskType), toArray(data));
+    }
+
+    /**
+     *
+     */
+    public void offerOld(Collection<TaskQueueItem> data, Integer taskType) {
         ZSetOperations<String, Long> operations = redisQueueTemplate.opsForZSet();
         Long addCount = operations.add(TOPIC_PREFIX + taskType, new HashSet<>(data));
         log.info("addCount: {}", addCount);
@@ -114,6 +131,17 @@ public class AirBoundedPriorityQueueService {
         List<Long> takeList = stringRedisTemplate.execute(redisScript, Collections.singletonList(TOPIC_PREFIX + taskType), String.valueOf(count));
         log.info("takeList: {}", takeList);
         return null;
+    }
+
+    private static Object[] toArray(Collection<TaskQueueItem> data) {
+        int size = data.size() * 2;
+        Object[] array = new Object[size];
+        int index = 0;
+        for (TaskQueueItem item : data) {
+            array[index++] = item.getValue();
+            array[index++] = item.getScore();
+        }
+        return array;
     }
 }
 

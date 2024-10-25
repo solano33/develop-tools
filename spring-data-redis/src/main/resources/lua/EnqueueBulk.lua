@@ -11,7 +11,7 @@ client:select(0)
 KEYS = 'test:100'
 ARGV = {1, 11, 2, 22, 3, 33}
 
-local queueName = KEYS[1]
+local queueName = KEYS
 local maxCapacity = 20
 
 -- 检查队列当前长度
