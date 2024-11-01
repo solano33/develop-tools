@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Component
 public class RedisZSetQOps {
@@ -27,6 +28,7 @@ public class RedisZSetQOps {
     private StringRedisTemplate stringRedisTemplate;
     @Resource
     private RedisTemplate<String, Integer> redisQueueTemplate;
+
     private final ResourceScriptSource ZSetEnqueueScript;
     private final ResourceScriptSource ZSetDequeueSingleScript;
     private final ResourceScriptSource ZSetDequeueMultiScript;
@@ -56,6 +58,24 @@ public class RedisZSetQOps {
     public RedisZSetQOps self() {
         return this;
     }
+
+    public Object test() {
+//        DefaultRedisScript<Map<Object, Object>> redisScript = new DefaultRedisScript<>();
+//        redisScript.setScriptSource(testScript);
+//        Object execute = redisTemplate.execute(redisScript, Collections.singletonList("TC:AIC:123456789"), 444);
+//        log.info("execute: {}", execute);
+//        return null;
+        String luaScript = "local tmp = {}\n" +
+                "tmp['instanceId'] = 666\n" +
+                "tmp['lastBeatTime'] = '2024-11-01T09:00:00'\n" +
+                "return tmp";
+        DefaultRedisScript<Map> redisScript = new DefaultRedisScript<>(luaScript, Map.class);
+        Map results = redisTemplate.execute(redisScript, Arrays.asList("TC:AIC:123456789"), 777);
+        log.info("results: {}", results);
+        return null;
+    }
+
+
 
     /**
      * 消息入队
