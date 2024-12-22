@@ -8,16 +8,14 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /**
  * @author github.com/solano33
@@ -34,6 +32,9 @@ public class ZsetQueueTest {
     private StringRedisTemplate stringRedisTemplate;
     @Autowired
     private RedisTemplate redisTemplate;
+    @Resource(name = "redisMapStringTemplate")
+    private RedisTemplate<String, String> redisMapStringTemplate;
+
     /**
      * WRONGTYPE Operation against a key holding the wrong kind of value script
      */
@@ -43,6 +44,26 @@ public class ZsetQueueTest {
         for (int i = 0; i < 100; i++) {
             redisZSetQOps.enqueue(i, random.nextInt(100));
         }
+    }
+
+    @Test
+    public void test() {
+        String luaScript = "local tmp = {}\n" +
+                "tmp['instanceId'] = 666\n" +
+                "tmp['lastBeatTime'] = '2024-11-01T09:00:00'\n" +
+                "return tmp";
+        luaScript = "return redis.call('hgetall', 'hash')";
+        DefaultRedisScript<Map> redisScript = new DefaultRedisScript<>(luaScript, Map.class);
+        redisScript.setResultType(Map.class);
+        Object results = redisTemplate.execute(redisScript, Arrays.asList("hash"), "ooo");
+        log.info("results: {}", results);
+    }
+
+    @Test
+    public void test2() {
+        HashOperations hashOperations = stringRedisTemplate.opsForHash();
+        Map hash = hashOperations.entries("tchash");
+        log.info("hash: {}", hash);
     }
 
     /**

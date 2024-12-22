@@ -12,6 +12,8 @@ import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
+import java.util.Map;
+
 /**
  * @author github.com/solano33
  * @date 2024/9/10 22:19
@@ -52,5 +54,37 @@ public class RedisConfig {
         redisTemplate.setKeySerializer(RedisSerializer.string());
         redisTemplate.setValueSerializer(valueSerializer);
         return redisTemplate;
+    }
+
+    @Bean
+    public RedisTemplate<String, Long> redisMapTemplate(RedisConnectionFactory redisConnectionFactory) {
+        RedisTemplate<String, Long> redisTemplate = new RedisTemplate<>();
+        redisTemplate.setConnectionFactory(redisConnectionFactory);
+        FastJsonRedisSerializer<Map> valueSerializer = new FastJsonRedisSerializer<>(Map.class);
+//        Jackson2JsonRedisSerializer<Long> valueSerializer = new Jackson2JsonRedisSerializer<>(Long.class);
+        redisTemplate.setKeySerializer(RedisSerializer.string());
+        redisTemplate.setValueSerializer(valueSerializer);
+        return redisTemplate;
+    }
+
+    @Bean
+    public RedisTemplate<String, String> redisMapStringTemplate(RedisConnectionFactory redisConnectionFactory) {
+        RedisTemplate<String, String> template = new RedisTemplate<>();
+
+        // 设置连接工厂
+        template.setConnectionFactory(redisConnectionFactory);
+
+        // 创建json序列化工具
+        FastJsonRedisSerializer<String> jsonSerializer = new FastJsonRedisSerializer<>(String.class);
+
+        // key序列化方式
+        template.setKeySerializer(RedisSerializer.string());
+        template.setHashKeySerializer(RedisSerializer.string());
+
+        // value序列化方式
+        template.setValueSerializer(jsonSerializer);
+        template.setHashValueSerializer(jsonSerializer);
+
+        return template;
     }
 }
