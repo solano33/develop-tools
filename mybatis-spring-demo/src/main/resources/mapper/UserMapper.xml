@@ -6,4 +6,10 @@
     <select id="selectAll" resultType="com.solano.user.entity.User">
         select * from user limit 100
     </select>
+
+    <update id="update">
+        update `user`
+        set age = #{age}
+        where id = #{id}
+    </update>
 </mapper>

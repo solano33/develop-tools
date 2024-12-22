@@ -1,6 +1,7 @@
 package com.solano.user.mapper;
 
 import com.solano.user.entity.User;
+import com.solano.user.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,10 +22,17 @@ public class UserMapperTest {
 
     @Resource
     private UserMapper userMapper;
+    @Resource
+    private UserService userService;
 
     @Test
     public void test() {
         List<User> users = userMapper.selectAll();
         log.info("users: {}", users);
+    }
+
+    @Test
+    public void update() {
+        userService.update();
     }
 }

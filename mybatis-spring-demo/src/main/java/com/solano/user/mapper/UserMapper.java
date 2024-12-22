@@ -2,6 +2,7 @@ package com.solano.user.mapper;
 
 import com.solano.user.entity.User;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -13,4 +14,6 @@ import java.util.List;
 public interface UserMapper {
 
 	List<User> selectAll();
+
+	void update(@Param("id") Integer id, @Param("age") Integer age);
 }
